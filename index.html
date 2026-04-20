@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>إنفوجرافيك ذكي: قانون التعاضديات الاجتماعية رقم 15-02</title>
+<title>المنصة الذكية لقانون التعاضديات الاجتماعية</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800&display=swap" rel="stylesheet">
@@ -24,20 +24,37 @@ body { font-family: 'Tajawal', sans-serif; background-color: #F8FAFC; color: #1E
 <header class="text-center mb-12">
 <div class="inline-block px-4 py-1 rounded-full bg-indigo-100 text-indigo-700 font-bold text-sm mb-4">منصة ذكية متكاملة ✨</div>
 <h1 class="text-4xl md:text-6xl font-extrabold text-indigo-900 mb-4 drop-shadow-sm">قانون التعاضديات الاجتماعية</h1>
-<h2 class="text-xl md:text-2xl text-gray-600 font-bold mb-6">الأدوات التفاعلية والبيانات القانونية (MUNATEC)</h2>
+<h2 class="text-xl md:text-2xl text-gray-600 font-bold mb-6">الأدوات التفاعلية والبيانات القانونية (الجزائر - MUNATEC)</h2>
+
+<!-- إعدادات المفتاح -->
+<div class="max-w-xl mx-auto mt-6 p-4 glass-card rounded-2xl shadow-sm border border-indigo-50 text-right">
+    <div class="flex justify-between items-center mb-2">
+        <label for="api-key-input" class="text-sm font-bold text-indigo-900">إعدادات الذكاء الاصطناعي ⚙️</label>
+        <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-xs text-indigo-600 hover:underline flex items-center gap-1">
+            <span>احصل على مفتاح Gemini الخاص بك مجاناً</span>
+            <span>🔗</span>
+        </a>
+    </div>
+    <div class="flex gap-2">
+        <input type="password" id="api-key-input" placeholder="أدخل مفتاح Gemini API هنا..." class="flex-1 p-2 text-sm border border-indigo-100 rounded-xl outline-none focus:border-indigo-500 transition shadow-inner">
+        <button onclick="saveApiKey()" class="bg-indigo-600 text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-indigo-700 transition">حفظ</button>
+        <button onclick="clearApiKey()" class="bg-red-50 text-red-600 border border-red-100 px-4 py-2 rounded-xl text-sm font-bold hover:bg-red-100 transition">مسح</button>
+    </div>
+    <p id="key-status" class="text-[10px] text-gray-400 mt-2">سيتم تخزين المفتاح في متصفحك الحالي فقط لضمان سهولة الاستخدام المستقبلي.</p>
+</div>
 </header>
 
-<!-- 1. قسم مستشار الذكاء الاصطناعي (الأول) -->
+<!-- 1. المستشار القانوني الذكي -->
 <section class="mb-8">
     <div class="glass-card rounded-3xl overflow-hidden shadow-2xl border-2 border-indigo-100">
         <div class="ai-gradient p-6 text-white flex flex-col md:flex-row justify-between items-center gap-4">
             <div>
                 <h3 class="text-2xl font-bold">المستشار القانوني والخدماتي ✨</h3>
-                <p class="text-indigo-100 opacity-90">اطرح سؤالاً حول القانون 15-02 أو خدمات MUNATEC.</p>
+                <p class="text-indigo-100 opacity-90">اطرح سؤالاً حول القانون 15-02 أو الخدمات التي تقدمها MUNATEC.</p>
             </div>
             <div class="flex gap-2 text-black">
-                <button onclick="askPreset('ما هي خدمات MUNATEC؟')" class="bg-white/90 hover:bg-white px-3 py-1 rounded-lg text-sm transition">خدمات MUNATEC؟</button>
-                <button onclick="askPreset('شروط التقاعد التكميلي؟')" class="bg-white/90 hover:bg-white px-3 py-1 rounded-lg text-sm transition">التقاعد؟</button>
+                <button onclick="askPreset('ما هي أهم خدمات MUNATEC؟')" class="bg-white/90 hover:bg-white px-3 py-1 rounded-lg text-sm transition">خدمات MUNATEC؟</button>
+                <button onclick="askPreset('ما هي شروط التقاعد التكميلي؟')" class="bg-white/90 hover:bg-white px-3 py-1 rounded-lg text-sm transition">التقاعد؟</button>
             </div>
         </div>
         <div class="p-6">
@@ -45,25 +62,25 @@ body { font-family: 'Tajawal', sans-serif; background-color: #F8FAFC; color: #1E
                 <div class="text-gray-400 text-center mt-10">ابدأ المحادثة بسؤال المستشار...</div>
             </div>
             <div class="flex gap-2">
-                <input type="text" id="user-query" placeholder="مثلاً: ما هي نسبة الاقتطاع من الأجر؟" class="flex-1 p-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 outline-none transition">
+                <input type="text" id="user-query" placeholder="مثلاً: كم تبلغ نسبة الاقتطاع من راتب 50 ألف دينار؟" class="flex-1 p-3 border-2 border-gray-200 rounded-xl focus:border-indigo-500 outline-none transition">
                 <button id="send-btn" onclick="askGemini()" class="ai-gradient text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:opacity-90 transition flex items-center gap-2">
                     <span>إرسال</span>
                     <div id="loading-spinner" class="loader hidden"></div>
                 </button>
             </div>
-            <div id="error-box" class="mt-2 text-red-500 text-sm hidden">حدث خطأ، يرجى المحاولة مرة أخرى.</div>
+            <div id="error-box" class="mt-2 text-red-500 text-sm hidden">حدث خطأ. يرجى التأكد من مفتاح API وصلاحية الاتصال.</div>
         </div>
     </div>
 </section>
 
-<!-- 2. قسم محلل الحقوق الشخصية (الثاني) -->
+<!-- 2. محلل الحقوق الشخصية -->
 <section class="mb-16 bg-indigo-50 rounded-3xl p-8 shadow-inner border-2 border-dashed border-indigo-200">
     <div class="text-center mb-6">
         <h3 class="text-2xl font-bold text-indigo-800">محلل الحقوق الشخصية ✨</h3>
-        <p class="text-gray-500">حلل وضعك المهني واعرف حقوقك المخصصة.</p>
+        <p class="text-gray-500">صف وضعك الوظيفي للحصول على تحليل مخصص لحقوقك وواجباتك القانونية.</p>
     </div>
     <div class="max-w-2xl mx-auto space-y-4">
-        <textarea id="scenario-input" rows="3" placeholder="مثال: أنا موظف أتقاضى 70,000 دج، ما هي نسبة اشتراكي في التقاعد التكميلي؟" class="w-full p-4 border-2 border-indigo-100 rounded-2xl outline-none focus:border-indigo-400 transition shadow-sm"></textarea>
+        <textarea id="scenario-input" rows="3" placeholder="مثال: أنا أعمل في قطاع التربية منذ 10 سنوات وراتبي 65,000 دج، ما هي الامتيازات التي توفرها لي MUNATEC؟" class="w-full p-4 border-2 border-indigo-100 rounded-2xl outline-none focus:border-indigo-400 transition shadow-sm"></textarea>
         <button onclick="analyzeScenario()" class="w-full ai-gradient text-white py-4 rounded-2xl font-bold text-lg shadow-xl hover:scale-[1.01] transition flex justify-center items-center gap-2">
             <span>تحليل حالتي المخصصة ✨</span>
             <div id="scenario-loader" class="loader hidden"></div>
@@ -72,59 +89,87 @@ body { font-family: 'Tajawal', sans-serif; background-color: #F8FAFC; color: #1E
     </div>
 </section>
 
-<!-- قسم الخدمات والبيانات -->
+<!-- قسم البيانات والخدمات -->
 <section class="mb-16">
     <div class="mb-8 border-r-4 border-blue-600 pr-4">
         <h3 class="text-2xl font-bold text-gray-800">خدمات MUNATEC والأرقام القانونية</h3>
-        <p class="text-gray-600 mt-2">تفاصيل الخدمات العينية والمالية التي تقدمها التعاضدية.</p>
+        <p class="text-gray-600 mt-2">التفاصيل القانونية والخدمات العينية المتوفرة للمنخرطين.</p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12 text-center">
         <div class="glass-card p-6 rounded-2xl shadow-md border-b-4 border-blue-500">
-            <h4 class="font-bold text-indigo-900 mb-2">تغطية 100%</h4>
-            <p class="text-xs text-gray-500 leading-relaxed">تعويض الفارق في تكاليف العلاج والأدوية والعمليات الجراحية.</p>
+            <div class="text-3xl mb-2">🏥</div>
+            <h4 class="font-bold text-indigo-900 mb-1">تغطية 100%</h4>
+            <p class="text-xs text-gray-500">تعويض فارق الضمان الاجتماعي للأدوية والعمليات.</p>
         </div>
         <div class="glass-card p-6 rounded-2xl shadow-md border-b-4 border-emerald-500">
-            <h4 class="font-bold text-indigo-900 mb-2">المنح والوفاة</h4>
-            <p class="text-xs text-gray-500 leading-relaxed">منح الولادة، الختان، ورأس مال الوفاة لذوي الحقوق.</p>
+            <div class="text-3xl mb-2">👶</div>
+            <h4 class="font-bold text-indigo-900 mb-1">المنح العائلية</h4>
+            <p class="text-xs text-gray-500">منح الولادة، الختان، ورأس مال الوفاة لذوي الحقوق.</p>
         </div>
         <div class="glass-card p-6 rounded-2xl shadow-md border-b-4 border-amber-500">
-            <h4 class="font-bold text-indigo-900 mb-2">المراكز الطبية</h4>
-            <p class="text-xs text-gray-500 leading-relaxed">شبكة وطنية من العيادات والصيدليات التعاضدية المخصصة.</p>
+            <div class="text-3xl mb-2">🏢</div>
+            <h4 class="font-bold text-indigo-900 mb-1">عيادات خاصة</h4>
+            <p class="text-xs text-gray-500">الوصول لشبكة وطنية من المراكز الصحية التعاضدية.</p>
         </div>
         <div class="glass-card p-6 rounded-2xl shadow-md border-b-4 border-purple-500">
-            <h4 class="font-bold text-indigo-900 mb-2">القروض والترفيه</h4>
-            <p class="text-xs text-gray-500 leading-relaxed">قروض اجتماعية بدون فوائد ورحلات ومخيمات صيفية.</p>
+            <div class="text-3xl mb-2">💰</div>
+            <h4 class="font-bold text-indigo-900 mb-1">قروض اجتماعية</h4>
+            <p class="text-xs text-gray-500">قروض بدون فوائد لحالات الزواج أو الكوارث.</p>
         </div>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div class="glass-card rounded-3xl p-6 shadow-xl">
-            <h4 class="text-xl font-bold mb-4 text-indigo-900">تحليل نسب الاشتراكات القصوى</h4>
+            <h4 class="text-xl font-bold mb-4 text-indigo-900 text-center">تحليل نسب الاشتراكات القصوى</h4>
             <div class="chart-container"><canvas id="subscriptionsChart"></canvas></div>
         </div>
         <div class="glass-card rounded-3xl p-6 shadow-xl">
-            <h4 class="text-xl font-bold mb-4 text-indigo-900">سقف مصاريف التسيير</h4>
+            <h4 class="text-xl font-bold mb-4 text-indigo-900 text-center">توزيع الموارد المالية</h4>
             <div class="chart-container"><canvas id="allocationChart"></canvas></div>
         </div>
     </div>
 </section>
 
 <footer class="text-center text-gray-400 text-sm py-8 border-t">
-    <p>القانون 15-02 - التعاضدية الوطنية لعمال التربية والثقافة (MUNATEC)</p>
+    <p>بناءً على القانون رقم 15-02 - التعاضدية الوطنية لعمال التربية والثقافة (MUNATEC)</p>
 </footer>
 
 </div>
 
 <script>
-const apiKey = ""; 
+let activeApiKey = localStorage.getItem('gemini_api_key') || "";
+
+function saveApiKey() {
+    const input = document.getElementById('api-key-input').value;
+    if (input.trim()) {
+        localStorage.setItem('gemini_api_key', input.trim());
+        activeApiKey = input.trim();
+        document.getElementById('key-status').innerText = "✅ تم حفظ المفتاح بنجاح في متصفحك.";
+        document.getElementById('key-status').className = "text-[10px] text-green-600 mt-2";
+    }
+}
+
+function clearApiKey() {
+    localStorage.removeItem('gemini_api_key');
+    activeApiKey = "";
+    document.getElementById('api-key-input').value = "";
+    document.getElementById('key-status').innerText = "🗑️ تم مسح المفتاح من الذاكرة المحلية.";
+    document.getElementById('key-status').className = "text-[10px] text-red-500 mt-2";
+}
 
 async function callGemini(prompt, systemInstruction) {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+    if (!activeApiKey) {
+        alert("يرجى إدخال مفتاح Gemini API وحفظه أولاً في الأعلى.");
+        throw new Error("No API Key Provided");
+    }
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${activeApiKey}`;
     const payload = {
         contents: [{ parts: [{ text: prompt }] }],
         systemInstruction: { parts: [{ text: systemInstruction }] }
     };
+
     let delay = 1000;
     for (let i = 0; i < 5; i++) {
         try {
@@ -141,7 +186,7 @@ async function callGemini(prompt, systemInstruction) {
         await new Promise(resolve => setTimeout(resolve, delay));
         delay *= 2;
     }
-    throw new Error("Error connecting to Gemini");
+    throw new Error("Gemini API Connection Failed");
 }
 
 async function askGemini() {
@@ -149,18 +194,22 @@ async function askGemini() {
     if (!query) return;
     const display = document.getElementById('chat-display');
     const spinner = document.getElementById('loading-spinner');
+    const errorBox = document.getElementById('error-box');
+
     display.innerHTML += `<div class="bg-indigo-100 p-3 rounded-xl ml-8 text-indigo-900 font-bold mb-2">سؤال: ${query}</div>`;
     display.scrollTop = display.scrollHeight;
     document.getElementById('user-query').value = '';
     spinner.classList.remove('hidden');
-    const systemPrompt = `أنت خبير قانوني في القانون الجزائري رقم 15-02 والتعاضدية الوطنية MUNATEC. 
-    قدم إجابات دقيقة حول النسب (1.5% إلى 7%)، شروط التأسيس، والمنح الصحية والاجتماعية.`;
+    errorBox.classList.add('hidden');
+
+    const systemPrompt = `أنت خبير قانوني في القانون رقم 15-02 الجزائري وخدمات تعاضدية MUNATEC. 
+    قدم إجابات دقيقة حول نسب الاشتراك (من 1.5% إلى 7% من SNMG)، الخدمات الصحية، والقروض الاجتماعية.
+    تحدث دائماً بأسلوب رسمي ومحترم باللغة العربية.`;
+    
     try {
         const response = await callGemini(query, systemPrompt);
         display.innerHTML += `<div class="bg-white p-3 rounded-xl mr-8 shadow-sm border border-gray-100 text-gray-800 mb-2"><b>المستشار ✨:</b><br>${response}</div>`;
-    } catch (err) {
-        display.innerHTML += `<div class="text-red-500 text-sm">عذراً، حدث خطأ في الاتصال.</div>`;
-    } finally {
+    } catch (err) { errorBox.classList.remove('hidden'); } finally {
         spinner.classList.add('hidden');
         display.scrollTop = display.scrollHeight;
     }
@@ -178,36 +227,66 @@ async function analyzeScenario() {
     const resultDiv = document.getElementById('scenario-result');
     loader.classList.remove('hidden');
     resultDiv.classList.add('hidden');
-    const systemPrompt = `حلل الحالة المهنية للمستخدم بناءً على القانون 15-02. احسب النسب المتوقعة واشرح المزايا المتاحة في MUNATEC.`;
     try {
-        const response = await callGemini(input, systemPrompt);
+        const response = await callGemini(input, "قم بتحليل الحالة المهنية للمستخدم بناءً على مواد القانون 15-02 وخدمات تعاضدية عمال التربية MUNATEC. كن موجزاً ومفيداً.");
         resultDiv.innerHTML = response;
         resultDiv.classList.remove('hidden');
-    } catch (err) { alert("Error analyzing scenario."); } finally { loader.classList.add('hidden'); }
+    } catch (err) { alert("تعذر التحليل. يرجى مراجعة إعدادات المفتاح."); } finally { loader.classList.add('hidden'); }
 }
 
 window.onload = function() {
-    const subLabelsRaw = ["أقل من 3 مرات الأجر الأدنى", "بين 3 و 5 مرات", "بين 5 و 10 مرات", "بين 10 و 15 مرة", "أكثر من 15 مرة"];
+    if (activeApiKey) {
+        document.getElementById('api-key-input').value = activeApiKey;
+        document.getElementById('key-status').innerText = "✅ تم استعادة مفتاح API المحفوظ تلقائياً.";
+        document.getElementById('key-status').className = "text-[10px] text-green-600 mt-2";
+    }
+
+    const wrapLabels = (labels, maxChars = 16) => labels.map(label => {
+        if (label.length <= maxChars) return label;
+        const words = label.split(' ');
+        let lines = [], cur = '';
+        words.forEach(w => {
+            if ((cur + w).length > maxChars) { lines.push(cur.trim()); cur = w + ' '; }
+            else { cur += w + ' '; }
+        });
+        if (cur) lines.push(cur.trim());
+        return lines;
+    });
+
     const ctxSub = document.getElementById('subscriptionsChart').getContext('2d');
     new Chart(ctxSub, {
         type: 'bar',
         data: {
-            labels: subLabelsRaw,
+            labels: wrapLabels(["أقل من 3 مرات SNMG", "بين 3 و 5 مرات SNMG", "بين 5 و 10 مرات SNMG", "بين 10 و 15 مرة SNMG", "أكثر من 15 مرة SNMG"]),
             datasets: [
                 { label: 'النظام العام (%)', data: [1.5, 3, 5, 6, 7], backgroundColor: '#6366f1' },
                 { label: 'التقاعد التكميلي (%)', data: [3, 4, 5, 6, 7], backgroundColor: '#a855f7' }
             ]
         },
-        options: { responsive: true, maintainAspectRatio: false }
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                tooltip: { callbacks: { title: (items) => { const l = items[0].chart.data.labels[items[0].dataIndex]; return Array.isArray(l) ? l.join(' ') : l; } } }
+            }
+        }
     });
+
     const ctxAlloc = document.getElementById('allocationChart').getContext('2d');
     new Chart(ctxAlloc, {
         type: 'doughnut',
         data: {
-            labels: ['تسيير إداري', 'أداءات تضامنية'],
+            labels: ['مصاريف التسيير (بحد أقصى)', 'الأداءات والاستثمار'],
             datasets: [{ data: [10, 90], backgroundColor: ['#f43f5e', '#10b981'] }]
         },
-        options: { responsive: true, maintainAspectRatio: false, cutout: '70%' }
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '75%',
+            plugins: {
+                tooltip: { callbacks: { title: (items) => { const l = items[0].chart.data.labels[items[0].dataIndex]; return Array.isArray(l) ? l.join(' ') : l; } } }
+            }
+        }
     });
 };
 </script>
